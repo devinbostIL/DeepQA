@@ -192,6 +192,7 @@ class Chatbot:
 
         print("Displaying summary statistics from TextData object:")
         self.textData.printWordCountStats()
+        print("self.textData.getWordIdCalledCount is: " + str(self.textData.getWordIdCalledCount))
 
         if self.args.test:
             if self.args.test == Chatbot.TestMode.INTERACTIVE:

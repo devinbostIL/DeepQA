@@ -49,6 +49,8 @@ class TextData:
             args: parameters of the model
         """
         # Model parameters
+
+        self.getWordIdCalledCount = 0
         self.wordCounts = {}  # dictionary keyed by wordId's; values are counts of the word
         self.args = args
         # Path variables
@@ -358,7 +360,7 @@ class TextData:
             int: the id of the word created
         """
         # Should we Keep only words with more than one occurrence ?
-
+        self.getWordIdCalledCount += 1
         word = word.lower()  # Ignore case
 
         # Get the id if the word already exist
