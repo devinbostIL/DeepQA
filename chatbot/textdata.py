@@ -228,9 +228,9 @@ class TextData:
         else:
             print('Loading dataset from {}...'.format(dirName))
             self.loadDataset(dirName)
-        print(self.getNumberOfDistinctWords() + " distinct words are in the vocabulary")
-        print(self.getNumberOfWordsThatOccurOnce() + " words occur only once")
-        print(self.getPercentageOfWordsThatOccurOnceToTotal() + " is the proportion of words that occur once to the number of distinct words")
+        print(str(self.getNumberOfDistinctWords()) + " distinct words are in the vocabulary")
+        print(str(self.getNumberOfWordsThatOccurOnce()) + " words occur only once")
+        print(str(self.getPercentageOfWordsThatOccurOnceToTotal()) + " is the proportion of words that occur once to the number of distinct words")
         assert self.padToken == 0
 
     def saveDataset(self, dirName):
