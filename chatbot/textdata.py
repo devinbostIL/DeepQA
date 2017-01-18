@@ -50,7 +50,6 @@ class TextData:
         """
         # Model parameters
         self.args = args
-
         # Path variables
         self.corpusDir = os.path.join(self.args.rootDir, 'data', self.args.corpus)
         self.samplesDir = os.path.join(self.args.rootDir, 'data/samples/')
@@ -73,6 +72,10 @@ class TextData:
 
         if self.args.playDataset:
             self.playDataset()
+        # additional values
+
+        self.wordCounts = {} # dictionary keyed by wordId's; values are counts of the word
+
 
     def _constructName(self):
         """Return the name of the dataset that the program should use with the current parameters.
@@ -224,7 +227,9 @@ class TextData:
         else:
             print('Loading dataset from {}...'.format(dirName))
             self.loadDataset(dirName)
-
+        print(self.getNumberOfDistinctWords() + " distinct words are in the vocabulary")
+        print(self.getNumberOfWordsThatOccurOnce() + " words occur only once")
+        print(self.getPercentageOfWordsThatOccurOnceToTotal() + " is the proportion of words that occur once to the number of distinct words")
         assert self.padToken == 0
 
     def saveDataset(self, dirName):
@@ -327,6 +332,15 @@ class TextData:
 
         return words
 
+    def getNumberOfDistinctWords(self):
+        return len(self.wordCounts.keys())
+    def getNumberOfWordsThatOccurOnce(self):
+        # filter dictionary to only keys where value == 1.
+        filteredCounts = {k: v for k, v in self.wordCounts.items() if v == 1}
+        return len(filteredCounts.keys())
+    def getPercentageOfWordsThatOccurOnceToTotal(self):
+        return float(self.getNumberOfWordsThatOccurOnce())/float(self.getNumberOfDistinctWords())
+
     def getWordId(self, word, create=True):
         """Get the id of the word (and add it to the dictionary if not existing). If the word does not exist and
         create is set to False, the function will return the unknownToken value
@@ -343,12 +357,21 @@ class TextData:
         # Get the id if the word already exist
         wordId = self.word2id.get(word, -1)
 
+        if(wordId != -1): #i.e. if the word already exists, then we need to increment the dictionary for the word count.
+            wordCount = self.wordCounts.get(wordId, -1) # provides default value of -1 if value is missing
+            if(wordCount == -1): # then we know that the value hadn't been counted yet
+                self.wordCounts[wordId] = 1 # Initialize word count to 1 for the first occurrence of the word.
+                                            # The above line should never get executed due to initialization when wordId == -1.
+            else:
+                self.wordCounts[wordId] += 1 # i.e. if the word already exists, then increment the counter by 1.
+
         # If not, we create a new entry
-        if wordId == -1:
+        if wordId == -1: # If the word is not known yet
             if create:
                 wordId = len(self.word2id)
                 self.word2id[word] = wordId
                 self.id2word[wordId] = word
+                self.wordCounts[wordId] = 1 # then we must initialize the value to a count of 1.
             else:
                 wordId = self.unknownToken
 
