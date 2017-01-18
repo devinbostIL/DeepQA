@@ -161,7 +161,7 @@ class Chatbot:
             self.model = Model(self.args, self.textData)
 
         # Saver/summaries
-        self.writer = tf.train.SummaryWriter(self._getSummaryName())
+        self.writer = tf.summary.FileWriter(self._getSummaryName())
         if '12' in tf.__version__:  # HACK: Solve new tf Saver V2 format
             self.saver = tf.train.Saver(max_to_keep=200, write_version=1)  # Arbitrary limit ?
         else:
@@ -179,7 +179,7 @@ class Chatbot:
         )  # TODO: Replace all sess by self.sess (not necessary a good idea) ?
 
         print('Initialize variables...')
-        self.sess.run(tf.initialize_all_variables())
+        self.sess.run(tf.global_variables_initializer())
 
         # Reload the model eventually (if it exist.), on testing mode, the models are not loaded here (but in predictTestset)
         if self.args.test != Chatbot.TestMode.ALL:
