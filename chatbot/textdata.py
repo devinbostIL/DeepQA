@@ -254,8 +254,8 @@ class TextData:
 
         with open(os.path.join(dirName, self.samplesName), 'wb') as handle:
             data = {  # Warning: If adding something here, also modifying loadDataset
-                "word2id": self.word2idExceptWordsOnlyOnce,
-                "id2word": self.id2WordExceptWordsOnlyOnce,
+                "word2id": word2idExceptWordsOnlyOnce,
+                "id2word": id2WordExceptWordsOnlyOnce,
                 "trainingSamples": self.trainingSamples
                 }
             pickle.dump(data, handle, -1)  # Using the highest protocol available
