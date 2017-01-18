@@ -178,8 +178,16 @@ class Chatbot:
             log_device_placement=False)  # Too verbose ?
         )  # TODO: Replace all sess by self.sess (not necessary a good idea) ?
 
+        print("Displaying summary statistics from TextData object:")
+        self.textData.printWordCountStats()
+        print("self.textData.getWordIdCalledCount is: " + str(self.textData.getWordIdCalledCount))
+
         print('Initialize variables...')
         self.sess.run(tf.global_variables_initializer())
+
+        print("Displaying summary statistics from TextData object:")
+        self.textData.printWordCountStats()
+        print("self.textData.getWordIdCalledCount is: " + str(self.textData.getWordIdCalledCount))
 
         # Reload the model eventually (if it exist.), on testing mode, the models are not loaded here (but in predictTestset)
         if self.args.test != Chatbot.TestMode.ALL:
