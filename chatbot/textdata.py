@@ -49,6 +49,7 @@ class TextData:
             args: parameters of the model
         """
         # Model parameters
+        self.wordCounts = {}  # dictionary keyed by wordId's; values are counts of the word
         self.args = args
         # Path variables
         self.corpusDir = os.path.join(self.args.rootDir, 'data', self.args.corpus)
@@ -74,7 +75,7 @@ class TextData:
             self.playDataset()
         # additional values
 
-        self.wordCounts = {} # dictionary keyed by wordId's; values are counts of the word
+
 
 
     def _constructName(self):
