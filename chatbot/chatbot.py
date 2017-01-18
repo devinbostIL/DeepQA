@@ -190,6 +190,9 @@ class Chatbot:
             print("Loading pre-trained embeddings from GoogleNews-vectors-negative300.bin")
             self.loadEmbedding(self.sess)
 
+        print("Displaying summary statistics from TextData object:")
+        self.textData.printWordCountStats()
+
         if self.args.test:
             if self.args.test == Chatbot.TestMode.INTERACTIVE:
                 self.mainTestInteractive(self.sess)
