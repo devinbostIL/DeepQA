@@ -248,14 +248,14 @@ class TextData:
         """
         # we need to remove all of the instances where the wordCount == 1.
         # filteredCounts = {k: v for k, v in self.wordCounts.items() if v == 1}
-        word2idExceptWordsOnlyOnce = {k: v for k, v in self.word2id.items() if self.wordCounts[v] != 1  and k != "<pad>" and k != "<go>" and k != "<eos>" and k != "<unknown>"}
-        id2WordExceptWordsOnlyOnce = {k: v for k, v in self.id2word.items() if self.wordCounts[k] != 1 and v != "<pad>" and v != "<go>" and v != "<eos>" and v != "<unknown>"}
+        #word2idExceptWordsOnlyOnce = {k: v for k, v in self.word2id.items() if self.wordCounts[v] != 1  and k != "<pad>" and k != "<go>" and k != "<eos>" and k != "<unknown>"}
+        #id2WordExceptWordsOnlyOnce = {k: v for k, v in self.id2word.items() if self.wordCounts[k] != 1 and v != "<pad>" and v != "<go>" and v != "<eos>" and v != "<unknown>"}
 
 
         with open(os.path.join(dirName, self.samplesName), 'wb') as handle:
             data = {  # Warning: If adding something here, also modifying loadDataset
-                "word2id": word2idExceptWordsOnlyOnce,
-                "id2word": id2WordExceptWordsOnlyOnce,
+                "word2id": self.word2id,
+                "id2word": self.id2word,
                 "trainingSamples": self.trainingSamples
                 }
             pickle.dump(data, handle, -1)  # Using the highest protocol available
