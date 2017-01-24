@@ -77,10 +77,13 @@ class CornellData:
         """
         conversations = []
 
-        with open(fileName, 'r', encoding='iso-8859-1') as f:  # TODO: Solve Iso encoding pb !
+        with open(fileName, 'r', encoding='utf16') as f:  # TODO: Solve Iso encoding pb !
             for line in f:
                 values = line.split(" +++$+++ ")
-
+                if(len(values) != 5):
+                    print("Warning: Length of values != 5")
+                    print("Values are: ")
+                    print(values)
                 # Extract fields
                 convObj = {}
                 for i, field in enumerate(fields):
