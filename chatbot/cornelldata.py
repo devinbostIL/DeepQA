@@ -54,7 +54,7 @@ class CornellData:
         """
         lines = {}
 
-        with open(fileName, 'r', encoding='iso-8859-1') as f:  # TODO: Solve Iso encoding pb !
+        with open(fileName, 'r', encoding='utf-8') as f:  # TODO: Solve Iso encoding pb !
             for line in f:
                 values = line.split(" +++$+++ ")
 
