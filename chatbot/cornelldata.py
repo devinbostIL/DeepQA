@@ -57,7 +57,10 @@ class CornellData:
         with open(fileName, 'r', encoding='utf16') as f:  # TODO: Solve Iso encoding pb ! # If there is no BOM, use utf_16_be
             for line in f:
                 values = line.split(" +++$+++ ")
-
+                if (len(values) != 5):
+                    print("Warning: Length of values != 5")
+                    print("Values are: ")
+                    print(values)
                 # Extract fields
                 lineObj = {}
                 for i, field in enumerate(fields):
@@ -80,8 +83,8 @@ class CornellData:
         with open(fileName, 'r', encoding='utf16') as f:  # TODO: Solve Iso encoding pb !
             for line in f:
                 values = line.split(" +++$+++ ")
-                if(len(values) != 5):
-                    print("Warning: Length of values != 5")
+                if(len(values) != 4):
+                    print("Warning: Length of values != 4")
                     print("Values are: ")
                     print(values)
                 # Extract fields
